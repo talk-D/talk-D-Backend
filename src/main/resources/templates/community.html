@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>community</title>
+</head>
+<body>
+<a href="/">로고(웰컴페이지)</a><br><br><br>
+
+커뮤니티 게시판<br>
+<a href="/community/save">글쓰기</a>
+
+<br><br><br><br><br>
+글목록<br>
+
+<table>
+<tr>
+    <th>type</th>
+    <th>id</th>
+    <th>title</th>
+    <th>writer</th>
+    <th>date</th>
+</tr>
+<tr th:each="board: ${boardList}">
+    <td th:text="${board.boardType}"></td>
+    <td th:text="${board.boardId}"></td>
+    <td><a th:href="@{|/community/${board.boardId}|}" th:text="${board.boardTitle}"></a></td>
+    <td th:text="${board.boardWriter}"></td>
+    <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    <td th:text="${board.boardHits}"></td>
+</tr>
+</table>
+
+
+</body>
+</html>

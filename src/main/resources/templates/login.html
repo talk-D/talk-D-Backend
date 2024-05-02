@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+로그인
+<form action="/login" method="post">
+    이메일: <input type = "text" name="memberEmail"><br>
+    비밀번호: <input type="password" name="memberPassword"><br>
+<input type="submit" value="로그인">
+</form>
+
+<div>
+    <p>카카오 API Key: <span th:text="${kakaoApiKey}"></span></p>
+    <p>리다이렉트 URI: <span th:text="${redirectUri}"></span></p>
+</div>
+
+<div class="text-center">
+
+    <a href="https://kauth.kakao.com/oauth/authorize"
+       th:href="@{https://kauth.kakao.com/oauth/authorize(response_type='code',client_id=${kakaoApiKey}, redirect_uri=${redirectUri})}">
+
+
+
+        카카오로 로그인하기
+    </a>
+</div>
+
+</body>
+</html>

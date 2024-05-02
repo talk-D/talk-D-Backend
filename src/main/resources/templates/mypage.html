@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지 - 회원정보 수정</title>
+</head>
+<body>
+<a href="/mypage/passwdModified">비밀번호 변경</a>
+<table>
+    <tr>
+        <th>id</th>
+        <th>email</th>
+        <th>name</th>
+    </tr>
+    <tr>
+        <td th:text="${member.memberId}"></td>
+        <td th:text="${member.memberEmail}"></td>
+        <td th:text="${member.memberName}"></td>
+    </tr>
+</table>
+<!--
+<form action="/mypage/modified" method="post">
+    이름: <input type="text" name="memberName"><br>
+    닉네임: <input type="text" name="memberNickname" cols="30" rows="10"><br>
+    사용자 이메일: <input type="text" name="memberEmail" readonly th:value="${Email}"><br>
+    한 줄 소개 : <input type="text" name="memberIntroduction"><br>
+    <input type="submit" value="회원 정보 수정">
+</form>
+-->
+</body>
+</html>
