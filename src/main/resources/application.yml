@@ -18,6 +18,7 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
+      # create / update
       ddl-auto: update
 
   profiles:

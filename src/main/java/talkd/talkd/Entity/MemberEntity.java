@@ -23,10 +23,10 @@ public class MemberEntity {
     @Column // 크기 255
     private String memberNickname;
 
-    @Column // 크기 255
+    @Column(nullable = true)// 크기 255
     private String memberPassword;
 
-    @Column
+    @Column(nullable = true)
     private String memberIntroduction;
 
     public static MemberEntity toSaveMemberEntity(MemberDTO memberDTO){

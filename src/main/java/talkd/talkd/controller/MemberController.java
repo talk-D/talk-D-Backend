@@ -26,13 +26,14 @@ public class MemberController {
         model.addAttribute("redirectUri", kakaoApi.getKakaoRedirectUri());
         return "login";
     }
+
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
-            // login 성공
+            // login 성공(loginEmail은 세션 정보 이름이다.)
             session.setAttribute("loginEmail", loginResult.getMemberEmail());
-            return "index";
+            return "main";
         } else {
             // login 실패
             return "login";
@@ -68,7 +69,8 @@ public class MemberController {
     }
 
     // 마이페이지
-    @GetMapping("/mypage/modified/{id}")
+    @GetMapping("/mypage/edit/{id}")
+    //@PathVariable은 {id}로 들어오는 값을 받아줌
     public String mypageModified(@PathVariable Long id, Model model){
         MemberDTO memberDTO = memberService.findById(id);
         model.addAttribute("member", memberDTO);
