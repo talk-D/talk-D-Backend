@@ -6,7 +6,7 @@
 </head>
 <body>
     session 값 확인: <p th:text="${session.loginEmail}"></p>
-    <a th:href="@{|/mypage/edit/{memberId}|}">마이페이지</a>
+    <a href="/mypage/edit">마이페이지</a>
     <a href="/member/logout">로그아웃</a>
 </body>
 </html>

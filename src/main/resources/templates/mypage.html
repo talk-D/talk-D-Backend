@@ -1,33 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>마이페이지 - 회원정보 수정</title>
 </head>
 <body>
 <a href="/mypage/passwdModified">비밀번호 변경</a>
-<table>
-    <tr>
-        <th>id</th>
-        <th>email</th>
-        <th>name</th>
-    </tr>
-    <tr>
-        <td th:text="${member.memberName}"></td>
-        <td th:text="${member.memberId}"></td>
-        <td th:text="${member.memberEmail}"></td>
-        <td th:text="${member.memberIntroduction}"></td>
 
-    </tr>
-</table>
-<!--
-<form action="/mypage/modified" method="post">
-    이름: <input type="text" name="memberName"><br>
-    닉네임: <input type="text" name="memberNickname" cols="30" rows="10"><br>
-    사용자 이메일: <input type="text" name="memberEmail" readonly th:value="${Email}"><br>
-    한 줄 소개 : <input type="text" name="memberIntroduction"><br>
+
+<form action="/mypage/edit" method="post">
+    <!--"hidden"은 클라이언트에게 안 보여주는 형태로 -->
+    <!--name속성은 DTO필드와 일치해야한다.-->
+    <input type="hidden" th:value="${updateMember.memberId}" name="memberId"><br>
+    이름: <input type="text" th:value="${updateMember.memberName}" name="memberName"> <br>
+    닉네임: <input type="text" th:value="${updateMember.memberNickname}" name="memberNickname"> <br>
+    <!--readonly속성은 보이는데 수정은 못하게 하는 속성이다.-->
+    이메일: <input type="text" th:value="${updateMember.memberEmail}" name="memberEmail" readonly> <br>
+    <input type="hidden" th:value="${updateMember.memberPassword}" name="memberPassword" readonly><br>
+    한 줄 소개: <input type="text" th:value="${updateMember.memberIntroduction}" name="memberIntroduction"> <br>
     <input type="submit" value="회원 정보 수정">
 </form>
+<!--
+비밀번호: <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword"> <br>
 -->
 </body>
 </html>

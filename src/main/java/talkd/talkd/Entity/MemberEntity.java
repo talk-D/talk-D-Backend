@@ -23,7 +23,7 @@ public class MemberEntity {
     @Column // 크기 255
     private String memberNickname;
 
-    @Column(nullable = true)// 크기 255
+    @Column// 크기 255
     private String memberPassword;
 
     @Column(nullable = true)
@@ -31,11 +31,19 @@ public class MemberEntity {
 
     public static MemberEntity toSaveMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setMemberId(memberDTO.getMemberId());
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberNickname(memberDTO.getMemberNickname());
+        return memberEntity;
+    }
+    public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberId(memberDTO.getMemberId());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberNickname(memberDTO.getMemberNickname());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberIntroduction(memberDTO.getMemberIntroduction());
         return memberEntity;
     }

@@ -6,6 +6,8 @@ import talkd.talkd.DTO.MemberDTO;
 import talkd.talkd.Entity.MemberEntity;
 import talkd.talkd.Repository.MemberRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -43,6 +45,16 @@ public class MemberService {
             return null;
         }
     }
+    public List<MemberDTO> findAll() {
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity memberEntity: memberEntityList) {
+            memberDTOList.add(MemberDTO.toMemberDTO(memberEntity));
+//            MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+//            memberDTOList.add(memberDTO);
+        }
+        return memberDTOList;
+    }
 
     public MemberDTO findById(Long id) {
         //객체 하나를 조회할 땐 optional로 감싸서 넘겨준다.
@@ -55,6 +67,18 @@ public class MemberService {
         } else {
             return null;
         }
+    }
 
+    public MemberDTO updateForm(String myEmail) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(myEmail);
+        if (optionalMemberEntity.isPresent()){
+            return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+        }else {
+            return null;
+        }
+    }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
     }
 }

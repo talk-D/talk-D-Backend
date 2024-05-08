@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import talkd.talkd.DTO.MemberDTO;
 import talkd.talkd.Entity.MemberEntity;
 import talkd.talkd.KakaoApi;
@@ -75,6 +76,21 @@ public class MemberController {
         MemberDTO memberDTO = memberService.findById(id);
         model.addAttribute("member", memberDTO);
         return "mypage";
+    }
+
+    @GetMapping("/mypage/edit")
+    public String updateForm(HttpSession session, Model model) {
+        //getAttribute는 기본적으로 오브젝트 타입이다 오브젝트>스트링 이므로 강제 형변환을 한 것이다.
+        String myEmail = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.updateForm(myEmail);
+        model.addAttribute("updateMember", memberDTO);
+        return "mypage";
+    }
+    @PostMapping("/mypage/edit")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "redirect:/mypage/edit";
+        //return "redirect:/member/" + memberDTO.getMemberId();
     }
 
 }
