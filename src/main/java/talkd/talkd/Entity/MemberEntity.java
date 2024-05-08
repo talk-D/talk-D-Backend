@@ -43,7 +43,7 @@ public class MemberEntity {
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberNickname(memberDTO.getMemberNickname());
-        memberEntity.setMemberPassword(memberDTO.getMemberPassword())
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberIntroduction(memberDTO.getMemberIntroduction());
         return memberEntity;
     }
