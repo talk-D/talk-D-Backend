@@ -38,6 +38,10 @@ public class MemberController {
             return "login";
         }
     }
+    @GetMapping("/login/join")
+    public String join(){
+        return "join_general";
+    }
 
     //회원가입 페이지
     @RequestMapping("/login/join")

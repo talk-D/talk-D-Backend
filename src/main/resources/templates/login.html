@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>talk:D - 로그인</title>
 </head>
 <body>
+<a href="/">로고(웰컴페이지)</a><br>
 로그인
 <form action="/login" method="post">
     이메일: <input type = "text" name="memberEmail"><br>
@@ -16,7 +17,7 @@
     <p>카카오 API Key: <span th:text="${kakaoApiKey}"></span></p>
     <p>리다이렉트 URI: <span th:text="${redirectUri}"></span></p>
 </div>
-
+<a href="/login/join">회원가입</a>
 <div class="text-center">
 
     <a href="https://kauth.kakao.com/oauth/authorize"
