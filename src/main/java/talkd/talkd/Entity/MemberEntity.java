@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import talkd.talkd.DTO.MemberDTO;
+import talkd.talkd.DTO.PasswdDTO;
 
 @Entity
 @Getter
@@ -45,6 +46,16 @@ public class MemberEntity {
         memberEntity.setMemberNickname(memberDTO.getMemberNickname());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberIntroduction(memberDTO.getMemberIntroduction());
+        return memberEntity;
+    }
+    public static MemberEntity topwChangeMemberEntity(MemberDTO memberDTO, PasswdDTO passwdDTO){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberId(memberDTO.getMemberId());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberNickname(memberDTO.getMemberNickname());
+        memberEntity.setMemberIntroduction(memberDTO.getMemberIntroduction());
+        memberEntity.setMemberPassword(passwdDTO.getNewPassword());
         return memberEntity;
     }
 }

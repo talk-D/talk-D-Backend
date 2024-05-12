@@ -5,8 +5,7 @@
     <title>마이페이지 - 회원정보 수정</title>
 </head>
 <body>
-<a href="/mypage/passwdModified">비밀번호 변경</a>
-
+<a href="/mypage/changePassword">비밀번호 변경</a>
 
 <form action="/mypage/edit" method="post">
     <!--"hidden"은 클라이언트에게 안 보여주는 형태로 -->
@@ -20,8 +19,5 @@
     한 줄 소개: <input type="text" th:value="${updateMember.memberIntroduction}" name="memberIntroduction"> <br>
     <input type="submit" value="회원 정보 수정">
 </form>
-<!--
-비밀번호: <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword"> <br>
--->
 </body>
 </html>

@@ -3,13 +3,13 @@ package talkd.talkd.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import talkd.talkd.DTO.MemberDTO;
+import talkd.talkd.DTO.PasswdDTO;
 import talkd.talkd.Entity.MemberEntity;
 import talkd.talkd.Repository.MemberRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 @RequiredArgsConstructor
@@ -77,8 +77,33 @@ public class MemberService {
             return null;
         }
     }
-
     public void update(MemberDTO memberDTO) {
         memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
     }
+
+    // 비밀번호 확인 매서드
+
+    public PasswdDTO passwordChange(String passwd) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberPassword(passwd);
+        if (optionalMemberEntity.isPresent()){
+            return PasswdDTO.toPasswdDTO(optionalMemberEntity.get());
+        }else {
+            return null;
+        }
+    }
+    public MemberDTO passwordCheck(PasswdDTO passwd) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberPassword(String.valueOf(passwd.getCurrentPassword()));
+        if (optionalMemberEntity.isPresent()){
+            return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+        }else {
+            return null;
+        }
+    }
+
+    public void change(MemberDTO memberDTO, PasswdDTO passwd) {
+        memberRepository.save(MemberEntity.topwChangeMemberEntity(memberDTO, passwd));
+        //memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
+    }
+
+
 }

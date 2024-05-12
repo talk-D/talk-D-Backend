@@ -5,11 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import talkd.talkd.DTO.MemberDTO;
-import talkd.talkd.Entity.MemberEntity;
+import talkd.talkd.DTO.PasswdDTO;
 import talkd.talkd.KakaoApi;
-import talkd.talkd.Repository.MemberRepository;
 import talkd.talkd.Service.MemberService;
 
 import java.util.Map;
@@ -69,15 +67,7 @@ public class MemberController {
         return "index";
     }
 
-    // 마이페이지
-    @GetMapping("/mypage/edit/{id}")
-    //@PathVariable은 {id}로 들어오는 값을 받아줌
-    public String mypageModified(@PathVariable Long id, Model model){
-        MemberDTO memberDTO = memberService.findById(id);
-        model.addAttribute("member", memberDTO);
-        return "mypage";
-    }
-
+    //마이페이지 - 회원 정보 수정
     @GetMapping("/mypage/edit")
     public String updateForm(HttpSession session, Model model) {
         //getAttribute는 기본적으로 오브젝트 타입이다 오브젝트>스트링 이므로 강제 형변환을 한 것이다.
@@ -92,5 +82,24 @@ public class MemberController {
         return "redirect:/mypage/edit";
         //return "redirect:/member/" + memberDTO.getMemberId();
     }
+    //마이페이지 - 비밀번호 변경
+    @GetMapping("/mypage/changePassword")
+    public String passwdModifiedForm(HttpSession session, Model model) {
 
+        String passwd = (String) session.getAttribute("loginEmail");
+        PasswdDTO passwdDTO = memberService.passwordChange(passwd);
+        model.addAttribute("updateMember", passwdDTO);
+        return "passwordChangeForm";
+    }
+    @PostMapping("/mypage/changePassword")
+    public String passwdModified(@ModelAttribute PasswdDTO passwdDTO){
+        MemberDTO memberDTO = memberService.passwordCheck(passwdDTO);
+        if(memberDTO != null){
+
+            memberService.change(memberDTO, passwdDTO);
+            return "passwordChangeForm";
+        }else{
+            return null;
+        }
+    }
 }
