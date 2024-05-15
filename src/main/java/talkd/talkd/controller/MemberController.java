@@ -35,10 +35,10 @@ public class MemberController {
             return "main";
         } else {
             // login 실패
-            return "login";
+            return "loginfail";
         }
     }
-    @GetMapping("/login/join")
+    @GetMapping("/join")
     public String join(){
         return "join_general";
     }
@@ -58,9 +58,15 @@ public class MemberController {
         System.out.println("nickname = " + nickname);
         System.out.println("accessToken = " + accessToken);
 
-        model.addAttribute("Email",email);
-
-        return "join";
+        //카카오 로그인 - 회원이라면
+        //kakao email == memberDTO email 검사
+        if(memberService.kakaoLoginCheck(code)!=null){
+            return "main";
+        }else{
+            //카카오 로그인 - 비회원이라면
+            model.addAttribute("Email",email);
+            return "join";
+        }
     }
 
     //회원가입 정보 가져와서 저장

@@ -2,19 +2,22 @@ package talkd.talkd.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import talkd.talkd.DTO.MemberDTO;
 import talkd.talkd.DTO.PasswdDTO;
 import talkd.talkd.Entity.MemberEntity;
 import talkd.talkd.Repository.MemberRepository;
+import talkd.talkd.KakaoApi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-
+    private final KakaoApi kakaoApi;
     private final MemberRepository memberRepository;
 
     public void save(MemberDTO memberDTO) {
@@ -45,6 +48,23 @@ public class MemberService {
             return null;
         }
     }
+    public MemberDTO kakaoLoginCheck(String code){
+        String accessToken = kakaoApi.getAccessToken(code);
+        Map<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
+        String email = (String)userInfo.get("email");
+        Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(email);
+        if (byMemberEmail.isPresent()) {
+            // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다)
+            // entity -> dto 변환 후 리턴
+            MemberEntity memberEntity = byMemberEmail.get();
+            MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+            return dto;
+        } else {
+            // 조회 결과가 없다(해당 이메일을 가진 회원이 없다)
+            return null;
+        }
+    }
+
     public List<MemberDTO> findAll() {
         List<MemberEntity> memberEntityList = memberRepository.findAll();
         List<MemberDTO> memberDTOList = new ArrayList<>();
